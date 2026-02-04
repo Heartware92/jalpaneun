@@ -96,7 +96,7 @@ export default function HomePage() {
 function SuccessFormulaDetail() {
   return (
     <section className="py-20 bg-white min-h-[60vh]">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         {/* 메인 타이틀 */}
         <div className="text-center mb-16">
           <span className="inline-block bg-red-100 text-red-600 text-base font-semibold px-4 py-1.5 rounded-full mb-4">
