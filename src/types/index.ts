@@ -3,6 +3,7 @@ export interface User {
   email: string;
   displayName: string;
   photoURL?: string;
+  phone?: string;
   provider: "email" | "kakao" | "naver" | "google";
   emailVerified?: boolean;
   createdAt: Date;

@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user, loading, signOut } = useAuth();
+  const { user, session, loading, signOut } = useAuth();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100">
@@ -21,11 +21,16 @@ export default function Header() {
 
           {/* PC 우측: 로그인/회원가입 */}
           <div className="hidden md:flex items-center gap-3">
-            {loading ? null : user ? (
+            {loading ? null : session ? (
               <div className="flex items-center gap-3">
-                <Link href="/my/courses">
+                <Link href="/my">
                   <Button variant="ghost" size="sm">
                     <User className="w-4 h-4 mr-1" />
+                    마이페이지
+                  </Button>
+                </Link>
+                <Link href="/my/courses">
+                  <Button variant="ghost" size="sm">
                     내 강의
                   </Button>
                 </Link>
@@ -82,8 +87,15 @@ export default function Header() {
               웨비나
             </Link>
             <hr className="my-2" />
-            {loading ? null : user ? (
+            {loading ? null : session ? (
               <>
+                <Link
+                  href="/my"
+                  className="text-base font-medium text-gray-700 py-2"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  마이페이지
+                </Link>
                 <Link
                   href="/my/courses"
                   className="text-base font-medium text-gray-700 py-2"
