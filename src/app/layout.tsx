@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "react-hot-toast";
+import AuthProvider from "@/components/providers/AuthProvider";
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
@@ -24,10 +25,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${notoSansKR.variable} font-sans antialiased`}>
-        <Toaster position="top-center" />
-        <Header />
-        <main className="min-h-screen pt-16">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <Toaster position="top-center" />
+          <Header />
+          <main className="min-h-screen pt-16">{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

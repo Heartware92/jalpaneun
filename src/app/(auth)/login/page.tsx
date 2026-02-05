@@ -41,13 +41,7 @@ export default function LoginPage() {
   const handleResend = async () => {
     setResending(true);
     try {
-      // 인증 메일 재발송을 위해 임시 로그인 후 발송
-      const { signInWithEmailAndPassword } = await import("firebase/auth");
-      const { auth } = await import("@/lib/firebase");
-      const credential = await signInWithEmailAndPassword(auth, email, password);
-      const { sendEmailVerification, signOut } = await import("firebase/auth");
-      await sendEmailVerification(credential.user);
-      await signOut(auth);
+      await resendVerification(email, password);
       toast.success("인증 메일을 재발송했습니다.");
     } catch {
       toast.error("인증 메일 발송에 실패했습니다.");

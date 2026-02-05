@@ -1,41 +1,20 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
-import toast from "react-hot-toast";
 
 export default function OAuthButtons() {
   const { signInWithKakao, signInWithNaver, signInWithGoogle } = useAuth();
-  const router = useRouter();
 
-  const handleKakao = async () => {
-    try {
-      await signInWithKakao();
-      toast.success("로그인 성공!");
-      router.push("/");
-    } catch {
-      toast.error("카카오 로그인에 실패했습니다.");
-    }
+  const handleKakao = () => {
+    signInWithKakao();
   };
 
-  const handleNaver = async () => {
-    try {
-      await signInWithNaver();
-      toast.success("로그인 성공!");
-      router.push("/");
-    } catch {
-      toast.error("네이버 로그인에 실패했습니다.");
-    }
+  const handleNaver = () => {
+    signInWithNaver();
   };
 
-  const handleGoogle = async () => {
-    try {
-      await signInWithGoogle();
-      toast.success("로그인 성공!");
-      router.push("/");
-    } catch {
-      toast.error("구글 로그인에 실패했습니다.");
-    }
+  const handleGoogle = () => {
+    signInWithGoogle();
   };
 
   return (
