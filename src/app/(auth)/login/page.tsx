@@ -21,6 +21,12 @@ export default function LoginPage() {
       toast.error("이메일을 입력해주세요.");
       return;
     }
+    // 이메일 형식 검증
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("이메일 형식이 올바르지 않습니다.");
+      return;
+    }
     if (!password) {
       toast.error("비밀번호를 입력해주세요.");
       return;
@@ -35,7 +41,7 @@ export default function LoginPage() {
       if (msg.includes("email-not-verified")) {
         toast.error("이메일 인증이 필요합니다. 메일함을 확인해주세요.");
       } else {
-        toast.error("이메일 또는 비밀번호를 확인해주세요.");
+        toast.error("이메일 또는 비밀번호가 일치하지 않습니다.");
       }
     } finally {
       setLoading(false);

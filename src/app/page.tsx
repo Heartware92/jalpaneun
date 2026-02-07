@@ -7,9 +7,9 @@ import FAQSection from "@/components/home/FAQSection";
 import StickyCtaBar from "@/components/home/StickyCtaBar";
 
 const tabs = [
-  { id: "success-formula", label: "요식업 성공 공식" },
+  { id: "success-formula", label: "잘되는 구조" },
   { id: "course", label: "장사의 정석" },
-  { id: "faq", label: "FAQ" },
+  { id: "faq", label: "장사의 정석 FAQ" },
 ];
 
 export default function HomePage() {
@@ -45,17 +45,17 @@ export default function HomePage() {
   return (
     <>
       {/* 앵커 탭 네비게이션 - 헤더 바로 아래 고정 */}
-      <div className="sticky top-16 z-40 bg-white border-b border-gray-200">
+      <div className="sticky top-16 z-40 bg-brand-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => scrollToSection(tab.id)}
-                className={`flex-1 py-4 text-base font-medium border-b-2 text-center transition-colors ${
+                className={`flex-1 py-4 text-sm sm:text-base font-medium border-b-2 text-center transition-colors ${
                   activeTab === tab.id
-                    ? "border-brand-red text-brand-red"
-                    : "border-transparent text-gray-500 hover:text-gray-700"
+                    ? "border-brand-red text-white"
+                    : "border-transparent text-gray-400 hover:text-gray-200"
                 }`}
               >
                 {tab.label}
