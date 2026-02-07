@@ -392,7 +392,7 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50 pt-20 pb-10">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm p-8 relative">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm p-5 sm:p-8 relative overflow-hidden">
         {/* 헤더 */}
         <div className="flex items-center justify-center mb-8 relative">
           <h1 className="text-2xl font-bold">회원가입</h1>
@@ -410,14 +410,14 @@ export default function SignupPage() {
           <label className="block text-sm font-bold text-gray-900 mb-2">
             이메일
           </label>
-          <div className="flex gap-2">
+          <div className="flex gap-1.5">
             <input
               type="email"
               placeholder="example@google.com"
               value={email}
               onChange={(e) => handleEmailChange(e.target.value)}
               className={cn(
-                "flex-1 h-12 rounded-lg border px-4 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2",
+                "flex-1 min-w-0 h-11 rounded-lg border px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2",
                 emailHasError
                   ? "border-red-500 focus:ring-red-500"
                   : "border-gray-300 focus:ring-brand-red"
@@ -427,7 +427,7 @@ export default function SignupPage() {
               type="button"
               onClick={handleCheckEmail}
               disabled={!emailFormatValid || emailCheckLoading}
-              className="h-12 px-4 rounded-lg border border-gray-300 text-sm font-medium bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+              className="shrink-0 h-11 px-3 rounded-lg border border-gray-300 text-sm font-medium bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
             >
               {emailCheckLoading ? "확인중..." : "중복확인"}
             </button>
@@ -571,8 +571,8 @@ export default function SignupPage() {
           {/* 인증번호 입력 */}
           {verificationSent && !phoneVerified && (
             <div className="mt-3">
-              <div className="flex gap-2">
-                <div className="flex-1 relative">
+              <div className="flex gap-1.5">
+                <div className="flex-1 min-w-0 relative">
                   <input
                     type="text"
                     inputMode="numeric"
@@ -583,10 +583,10 @@ export default function SignupPage() {
                         e.target.value.replace(/\D/g, "")
                       )
                     }
-                    className="w-full h-12 rounded-lg border border-gray-300 px-4 pr-16 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red"
+                    className="w-full h-10 rounded-lg border border-gray-300 px-3 pr-14 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red"
                   />
                   {timer > 0 && (
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-brand-red font-medium">
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-brand-red font-medium">
                       {formatTimer(timer)}
                     </span>
                   )}
@@ -594,7 +594,7 @@ export default function SignupPage() {
                 <button
                   type="button"
                   onClick={handleVerifyCode}
-                  className="h-12 px-4 rounded-lg border border-gray-300 text-sm font-medium bg-white hover:bg-gray-50 whitespace-nowrap"
+                  className="shrink-0 h-10 px-3 rounded-lg border border-gray-300 text-sm font-medium bg-white hover:bg-gray-50 whitespace-nowrap"
                 >
                   인증확인
                 </button>

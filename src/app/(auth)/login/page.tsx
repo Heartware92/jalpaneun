@@ -44,7 +44,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50 pt-20">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm p-8 relative">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm p-5 sm:p-8 relative overflow-hidden">
         {/* 헤더 */}
         <div className="flex items-center justify-center mb-8 relative">
           <h1 className="text-2xl font-bold">잘파는사람들</h1>
