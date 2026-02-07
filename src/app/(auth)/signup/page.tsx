@@ -420,7 +420,7 @@ export default function SignupPage() {
                 "flex-1 min-w-0 h-11 rounded-lg border px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2",
                 emailHasError
                   ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:ring-brand-red"
+                  : "border-gray-300 focus:ring-gray-300"
               )}
             />
             <button
@@ -453,7 +453,7 @@ export default function SignupPage() {
               "w-full h-11 sm:h-12 rounded-lg border px-3 sm:px-4 text-sm sm:text-base focus:outline-none focus:ring-2",
               showPasswordError
                 ? "border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:ring-brand-red"
+                : "border-gray-300 focus:ring-gray-300"
             )}
           />
           {showPasswordError ? (
@@ -483,7 +483,7 @@ export default function SignupPage() {
               "w-full h-11 sm:h-12 rounded-lg border px-3 sm:px-4 text-sm sm:text-base focus:outline-none focus:ring-2",
               showPasswordConfirmError
                 ? "border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:ring-brand-red"
+                : "border-gray-300 focus:ring-gray-300"
             )}
           />
           {showPasswordConfirmError && (
@@ -545,7 +545,7 @@ export default function SignupPage() {
                 setPhoneMid(e.target.value.replace(/\D/g, ""))
               }
               disabled={phoneVerified}
-              className="flex-1 min-w-0 h-10 rounded-lg border border-gray-300 px-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-brand-red disabled:opacity-50 disabled:bg-gray-50"
+              className="flex-1 min-w-0 h-10 rounded-lg border border-gray-300 px-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-gray-300 disabled:opacity-50 disabled:bg-gray-50"
             />
             <input
               type="text"
@@ -556,7 +556,7 @@ export default function SignupPage() {
                 setPhoneLast(e.target.value.replace(/\D/g, ""))
               }
               disabled={phoneVerified}
-              className="flex-1 min-w-0 h-10 rounded-lg border border-gray-300 px-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-brand-red disabled:opacity-50 disabled:bg-gray-50"
+              className="flex-1 min-w-0 h-10 rounded-lg border border-gray-300 px-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-gray-300 disabled:opacity-50 disabled:bg-gray-50"
             />
             <button
               type="button"
@@ -583,7 +583,7 @@ export default function SignupPage() {
                         e.target.value.replace(/\D/g, "")
                       )
                     }
-                    className="w-full h-10 rounded-lg border border-gray-300 px-3 pr-14 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red"
+                    className="w-full h-10 rounded-lg border border-gray-300 px-3 pr-14 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
                   />
                   {timer > 0 && (
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-brand-red font-medium">

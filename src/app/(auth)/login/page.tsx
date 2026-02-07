@@ -87,14 +87,14 @@ export default function LoginPage() {
             placeholder="이메일"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full h-11 sm:h-12 rounded-lg border border-gray-300 px-3 sm:px-4 text-sm sm:text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"
+            className="w-full h-11 sm:h-12 rounded-lg border border-gray-300 px-3 sm:px-4 text-sm sm:text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
           />
           <input
             type="password"
             placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full h-11 sm:h-12 rounded-lg border border-gray-300 px-3 sm:px-4 text-sm sm:text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"
+            className="w-full h-11 sm:h-12 rounded-lg border border-gray-300 px-3 sm:px-4 text-sm sm:text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
           />
           <button
             type="submit"
