@@ -26,11 +26,11 @@ export default function HeroSection() {
             실전 사례 중심, 바로 적용 가능한 장사 전략.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="/courses/jangsa">
-              <Button size="xl">강의 살펴보기</Button>
+            <Link href="/courses/jangsa" className="block">
+              <Button size="xl" className="w-full sm:min-w-[200px]">강의 살펴보기</Button>
             </Link>
-            <Link href="/webinar">
-              <Button variant="outline" size="xl">
+            <Link href="/webinar" className="block">
+              <Button variant="outline" size="xl" className="w-full sm:min-w-[200px]">
                 무료 웨비나 신청
               </Button>
             </Link>
