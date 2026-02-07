@@ -433,7 +433,7 @@ export default function SignupPage() {
             </button>
           </div>
           {emailMessage && (
-            <p className="mt-1.5 text-sm text-red-500">{emailMessage}</p>
+            <p className="mt-1.5 text-xs sm:text-sm text-red-500">{emailMessage}</p>
           )}
         </div>
 
@@ -450,18 +450,18 @@ export default function SignupPage() {
               setPasswordTouched(true);
             }}
             className={cn(
-              "w-full h-12 rounded-lg border px-4 text-base focus:outline-none focus:ring-2",
+              "w-full h-11 sm:h-12 rounded-lg border px-3 sm:px-4 text-sm sm:text-base focus:outline-none focus:ring-2",
               showPasswordError
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-brand-red"
             )}
           />
           {showPasswordError ? (
-            <p className="mt-1.5 text-sm text-red-500">
+            <p className="mt-1.5 text-xs sm:text-sm text-red-500">
               영문/숫자/특수문자 중 2가지를 포함하여 8자 이상 입력해주세요.
             </p>
           ) : (
-            <p className="mt-1.5 text-sm text-gray-400">
+            <p className="mt-1.5 text-xs sm:text-sm text-gray-400">
               영문/숫자/특수문자 중 2가지 이상 조합, 8자~32자
             </p>
           )}
@@ -480,14 +480,14 @@ export default function SignupPage() {
               setPasswordConfirmTouched(true);
             }}
             className={cn(
-              "w-full h-12 rounded-lg border px-4 text-base focus:outline-none focus:ring-2",
+              "w-full h-11 sm:h-12 rounded-lg border px-3 sm:px-4 text-sm sm:text-base focus:outline-none focus:ring-2",
               showPasswordConfirmError
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-brand-red"
             )}
           />
           {showPasswordConfirmError && (
-            <p className="mt-1.5 text-sm text-red-500">
+            <p className="mt-1.5 text-xs sm:text-sm text-red-500">
               비밀번호가 일치하지 않습니다.
             </p>
           )}
@@ -603,12 +603,12 @@ export default function SignupPage() {
           )}
 
           {phoneVerified && (
-            <p className="mt-1.5 text-sm text-green-600">
+            <p className="mt-1.5 text-xs sm:text-sm text-green-600">
               휴대폰 인증이 완료되었습니다.
             </p>
           )}
           {phoneError && (
-            <p className="mt-1.5 text-sm text-red-500">{phoneError}</p>
+            <p className="mt-1.5 text-xs sm:text-sm text-red-500">{phoneError}</p>
           )}
         </div>
 
@@ -621,7 +621,7 @@ export default function SignupPage() {
               onChange={(e) => handleAllAgreement(e.target.checked)}
               className="w-5 h-5 accent-brand-red"
             />
-            <span className="text-base font-bold text-gray-900">
+            <span className="text-sm sm:text-base font-bold text-gray-900">
               전체 동의
             </span>
           </label>
@@ -665,7 +665,7 @@ export default function SignupPage() {
                   }
                   className="w-4 h-4 accent-brand-red"
                 />
-                <span className="text-sm text-gray-600">이메일</span>
+                <span className="text-xs sm:text-sm text-gray-600">이메일</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
@@ -676,7 +676,7 @@ export default function SignupPage() {
                   }
                   className="w-4 h-4 accent-brand-red"
                 />
-                <span className="text-sm text-gray-600">SMS</span>
+                <span className="text-xs sm:text-sm text-gray-600">SMS</span>
               </label>
             </div>
           </div>
@@ -687,12 +687,12 @@ export default function SignupPage() {
           type="button"
           onClick={handleSubmit}
           disabled={loading}
-          className="w-full h-12 bg-brand-red text-white rounded-lg font-bold text-base hover:bg-red-700 disabled:opacity-50 transition-colors cursor-pointer"
+          className="w-full h-11 sm:h-12 bg-brand-red text-white rounded-lg font-bold text-sm sm:text-base hover:bg-red-700 disabled:opacity-50 transition-colors cursor-pointer"
         >
           {loading ? "가입 중..." : "회원가입"}
         </button>
 
-        <p className="text-center text-sm text-gray-500 mt-4">
+        <p className="text-center text-xs sm:text-sm text-gray-500 mt-4">
           이미 계정이 있으신가요?{" "}
           <Link
             href="/login"
@@ -726,13 +726,13 @@ function AgreementRow({
           onChange={(e) => onChange(e.target.checked)}
           className="w-5 h-5 accent-brand-red"
         />
-        <span className="text-sm text-gray-700">{label}</span>
+        <span className="text-xs sm:text-sm text-gray-700">{label}</span>
       </label>
       {showLink && (
         <button
           type="button"
           onClick={() => toast("준비 중입니다.")}
-          className="text-sm text-gray-400 hover:text-gray-600 hover:underline"
+          className="text-xs sm:text-sm text-gray-400 hover:text-gray-600 hover:underline"
         >
           보기
         </button>

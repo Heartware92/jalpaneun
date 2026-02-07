@@ -61,7 +61,7 @@ export default function LoginPage() {
         <button
           type="button"
           onClick={() => signInWithKakao()}
-          className="w-full h-12 rounded-lg bg-[#FEE500] text-[#191919] font-bold text-base flex items-center justify-center gap-2 hover:brightness-95 transition-all mb-6 cursor-pointer"
+          className="w-full h-12 rounded-lg bg-[#FEE500] text-[#191919] font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-95 transition-all mb-6 cursor-pointer"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <path
@@ -81,19 +81,19 @@ export default function LoginPage() {
             placeholder="이메일"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full h-12 rounded-lg border border-gray-300 px-4 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"
+            className="w-full h-11 sm:h-12 rounded-lg border border-gray-300 px-3 sm:px-4 text-sm sm:text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"
           />
           <input
             type="password"
             placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full h-12 rounded-lg border border-gray-300 px-4 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"
+            className="w-full h-11 sm:h-12 rounded-lg border border-gray-300 px-3 sm:px-4 text-sm sm:text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"
           />
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-12 rounded-lg bg-brand-red text-white font-bold text-base hover:bg-red-700 disabled:opacity-50 transition-colors cursor-pointer"
+            className="w-full h-11 sm:h-12 rounded-lg bg-brand-red text-white font-bold text-sm sm:text-base hover:bg-red-700 disabled:opacity-50 transition-colors cursor-pointer"
           >
             {loading ? "로그인 중..." : "로그인"}
           </button>
@@ -152,7 +152,7 @@ export default function LoginPage() {
         </div>
 
         {/* ③ 회원가입 링크 */}
-        <p className="text-center text-sm text-gray-600 mb-3">
+        <p className="text-center text-xs sm:text-sm text-gray-600 mb-3">
           아직 잘파는사람들 회원이 아니신가요?{" "}
           <Link
             href="/signup"
@@ -163,7 +163,7 @@ export default function LoginPage() {
         </p>
 
         {/* ④ 아이디 찾기 | 비밀번호 찾기 */}
-        <p className="text-center text-sm text-gray-400">
+        <p className="text-center text-xs sm:text-sm text-gray-400">
           <button
             type="button"
             onClick={() => toast("준비 중입니다.")}
