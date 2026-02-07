@@ -26,35 +26,18 @@ export default function StickyCtaBar() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#3b3b7a] shadow-[0_-4px_12px_rgba(0,0,0,0.15)] transition-transform duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-        {/* PC: 가로 배치 */}
-        <div className="hidden sm:flex items-center justify-end gap-6">
-          <p className="text-sm md:text-base text-white/90 text-right leading-snug">
-            잘되는 구조, 우리 가게에도 맞을까?
-            <br />
-            기본부터 다시 점검해 보세요
-          </p>
-          <Link
-            href="/webinar"
-            className="shrink-0 px-6 py-3 bg-brand-red text-white font-bold text-sm md:text-base rounded-lg hover:bg-red-700 transition-colors"
-          >
-            무료 라이브 신청하기
-          </Link>
-        </div>
-        {/* MO: 세로 스택 */}
-        <div className="sm:hidden flex flex-col items-center gap-3">
-          <p className="text-sm text-white/90 text-center leading-snug">
-            잘되는 구조, 우리 가게에도 맞을까?
-            <br />
-            기본부터 다시 점검해 보세요
-          </p>
-          <Link
-            href="/webinar"
-            className="px-6 py-3 bg-brand-red text-white font-bold text-sm rounded-lg hover:bg-red-700 transition-colors"
-          >
-            무료 라이브 신청하기
-          </Link>
-        </div>
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-center sm:justify-end gap-3 sm:gap-6">
+        <p className="text-xs sm:text-sm md:text-base text-white/90 text-right leading-snug">
+          잘되는 구조, 우리 가게에도 맞을까?
+          <br />
+          기본부터 다시 점검해 보세요
+        </p>
+        <Link
+          href="/webinar"
+          className="shrink-0 px-4 sm:px-6 py-2.5 sm:py-3 bg-brand-red text-white font-bold text-xs sm:text-sm md:text-base rounded-lg hover:bg-red-700 transition-colors whitespace-nowrap"
+        >
+          무료 라이브 신청하기
+        </Link>
       </div>
     </div>
   );
