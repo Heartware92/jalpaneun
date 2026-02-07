@@ -29,14 +29,14 @@ const handler = NextAuth({
 
           const firebaseUser = userCredential.user;
 
-          // 이메일 인증 확인
-          if (!firebaseUser.emailVerified) {
-            throw new Error("email-not-verified");
-          }
-
           // Firestore에서 유저 정보 가져오기
           const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
           const userData = userDoc.data();
+
+          // 이메일 인증 또는 휴대폰 인증 확인
+          if (!firebaseUser.emailVerified && !userData?.phoneVerified) {
+            throw new Error("email-not-verified");
+          }
 
           return {
             id: firebaseUser.uid,

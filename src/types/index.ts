@@ -6,6 +6,7 @@ export interface User {
   phone?: string;
   provider: "email" | "kakao" | "naver" | "google";
   emailVerified?: boolean;
+  phoneVerified?: boolean;
   createdAt: Date;
 }
 

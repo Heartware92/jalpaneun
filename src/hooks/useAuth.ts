@@ -2,7 +2,7 @@
 
 import { useSession, signIn, signOut as nextAuthSignOut } from "next-auth/react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { db, auth } from "@/lib/firebase";
 import { useEffect, useState } from "react";
 import type { User } from "@/types";
@@ -44,16 +44,16 @@ export function useAuth() {
   }, [session, status]);
 
   // 이메일/비밀번호 회원가입
-  const signUp = async (email: string, password: string, name: string) => {
+  const signUp = async (email: string, password: string, name: string, phone?: string) => {
     const credential = await createUserWithEmailAndPassword(auth, email, password);
-    await sendEmailVerification(credential.user);
 
     const userData: User = {
       uid: credential.user.uid,
       email,
-      displayName: name,
+      displayName: name || email.split("@")[0],
+      phone: phone || "",
       provider: "email",
-      emailVerified: false,
+      phoneVerified: !!phone,
       createdAt: new Date(),
     };
     await setDoc(doc(db, "users", credential.user.uid), userData);
