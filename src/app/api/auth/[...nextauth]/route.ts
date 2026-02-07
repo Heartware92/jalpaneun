@@ -74,16 +74,17 @@ const handler = NextAuth({
       }
 
       // 소셜 로그인: Firestore에 유저 저장
-      if (!user.email) return false;
-
       try {
-        const userRef = doc(db, "users", user.id);
+        const userId = user.id || account?.providerAccountId || "";
+        if (!userId) return false;
+
+        const userRef = doc(db, "users", userId);
         const userDoc = await getDoc(userRef);
 
         if (!userDoc.exists()) {
           await setDoc(userRef, {
-            uid: user.id,
-            email: user.email,
+            uid: userId,
+            email: user.email || "",
             displayName: user.name || "",
             photoURL: user.image || null,
             provider: account?.provider || "unknown",
