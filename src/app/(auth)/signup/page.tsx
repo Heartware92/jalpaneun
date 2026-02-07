@@ -372,10 +372,9 @@ export default function SignupPage() {
     }
   };
 
-  // Email message
+  // Email message - 입력 중이면 검증 완료 전까지 빨간 테두리
   const emailHasError =
-    (email.length > 0 && !emailFormatValid) ||
-    (emailChecked && !emailAvailable);
+    email.length > 0 && !(emailChecked && emailAvailable);
   const emailMessage =
     email.length > 0 && !emailFormatValid
       ? "올바른 이메일 형식이 아닙니다"
@@ -499,9 +498,9 @@ export default function SignupPage() {
           <label className="block text-sm font-bold text-gray-900 mb-2">
             휴대폰 번호
           </label>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-1.5 items-center">
             {/* 국번 셀렉트 */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <button
                 type="button"
                 onClick={(e) => {
@@ -509,10 +508,10 @@ export default function SignupPage() {
                   setShowPrefixDropdown(!showPrefixDropdown);
                 }}
                 disabled={phoneVerified}
-                className="h-12 px-3 rounded-lg border border-gray-300 flex items-center gap-1 text-base min-w-[80px] bg-white disabled:opacity-50"
+                className="h-10 px-2 rounded-lg border border-gray-300 flex items-center gap-0.5 text-sm bg-white disabled:opacity-50"
               >
                 {phonePrefix}
-                <ChevronDown className="w-4 h-4 text-gray-400" />
+                <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
               </button>
               {showPrefixDropdown && (
                 <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[100px]">
@@ -546,7 +545,7 @@ export default function SignupPage() {
                 setPhoneMid(e.target.value.replace(/\D/g, ""))
               }
               disabled={phoneVerified}
-              className="flex-1 h-12 rounded-lg border border-gray-300 px-3 text-base text-center focus:outline-none focus:ring-2 focus:ring-brand-red disabled:opacity-50 disabled:bg-gray-50"
+              className="flex-1 min-w-0 h-10 rounded-lg border border-gray-300 px-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-brand-red disabled:opacity-50 disabled:bg-gray-50"
             />
             <input
               type="text"
@@ -557,13 +556,13 @@ export default function SignupPage() {
                 setPhoneLast(e.target.value.replace(/\D/g, ""))
               }
               disabled={phoneVerified}
-              className="flex-1 h-12 rounded-lg border border-gray-300 px-3 text-base text-center focus:outline-none focus:ring-2 focus:ring-brand-red disabled:opacity-50 disabled:bg-gray-50"
+              className="flex-1 min-w-0 h-10 rounded-lg border border-gray-300 px-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-brand-red disabled:opacity-50 disabled:bg-gray-50"
             />
             <button
               type="button"
               onClick={handleSendCode}
               disabled={phoneVerified}
-              className="h-12 px-4 rounded-lg border border-gray-300 text-sm font-medium bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+              className="shrink-0 h-10 px-3 rounded-lg border border-gray-300 text-sm font-medium bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
             >
               인증요청
             </button>
