@@ -43,24 +43,28 @@ export default function CoursePreviewSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="flex items-center gap-4 bg-gray-50 rounded-xl p-5 hover:bg-red-50 transition-colors"
+              className="flex items-center gap-3 sm:gap-4 bg-gray-50 rounded-xl p-4 sm:p-5 hover:bg-red-50 transition-colors"
             >
-              <div className="flex-shrink-0 w-12 h-12 bg-brand-red text-white rounded-xl flex items-center justify-center font-bold">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-brand-red text-white rounded-xl flex items-center justify-center font-bold text-sm sm:text-base">
                 {w.week}
               </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900">{w.title}</h3>
-                <p className="text-base text-gray-500">{w.desc}</p>
-              </div>
-              <div className="flex items-center gap-3 text-base text-gray-400">
-                <span className="flex items-center gap-1">
-                  <PlayCircle className="w-4 h-4" />
-                  {w.lessons}개
-                </span>
-                <span className="flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
-                  ~90분
-                </span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start sm:items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <h3 className="text-sm sm:text-lg font-semibold text-gray-900">{w.title}</h3>
+                    <p className="text-xs sm:text-base text-gray-500">{w.desc}</p>
+                  </div>
+                  <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-base text-gray-400 shrink-0">
+                    <span className="flex items-center gap-1">
+                      <PlayCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      {w.lessons}개
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      ~90분
+                    </span>
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
