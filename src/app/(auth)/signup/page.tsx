@@ -12,6 +12,7 @@ import { db } from "@/lib/firebase";
 import { signIn } from "next-auth/react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const NAME_REGEX = /^[가-힣a-zA-Z]+$/;
 const PHONE_PREFIXES = ["010", "011", "016", "017"];
 
 function validatePassword(pw: string): boolean {
@@ -29,6 +30,7 @@ export default function SignupPage() {
 
   // Refs for scroll-to-error
   const emailRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLDivElement>(null);
   const passwordRef = useRef<HTMLDivElement>(null);
   const passwordConfirmRef = useRef<HTMLDivElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
@@ -39,6 +41,10 @@ export default function SignupPage() {
   const [emailChecked, setEmailChecked] = useState(false);
   const [emailAvailable, setEmailAvailable] = useState(false);
   const [emailCheckLoading, setEmailCheckLoading] = useState(false);
+
+  // Name
+  const [name, setName] = useState("");
+  const [nameTouched, setNameTouched] = useState(false);
 
   // Password
   const [password, setPassword] = useState("");
@@ -256,6 +262,21 @@ export default function SignupPage() {
       emailRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
+    if (!name.trim()) {
+      toast.error("이름(닉네임)을 입력해주세요.");
+      nameRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    if (!NAME_REGEX.test(name.trim())) {
+      toast.error("이름(닉네임)은 한글과 영문만 입력 가능합니다.");
+      nameRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    if (name.trim().length < 3 || name.trim().length > 10) {
+      toast.error("이름(닉네임)은 3자~10자로 입력해주세요.");
+      nameRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     if (!password) {
       toast.error("비밀번호를 입력해주세요.");
       passwordRef.current?.scrollIntoView({
@@ -348,7 +369,7 @@ export default function SignupPage() {
     setLoading(true);
     try {
       const phone = `${phonePrefix}-${phoneMid}-${phoneLast}`;
-      await signUp(email, password, email.split("@")[0], phone);
+      await signUp(email, password, name.trim(), phone);
 
       const result = await signIn("credentials", {
         email,
@@ -437,7 +458,43 @@ export default function SignupPage() {
           )}
         </div>
 
-        {/* ② 비밀번호 */}
+        {/* ② 이름(닉네임) */}
+        <div ref={nameRef} className="mb-6">
+          <label className="block text-sm font-bold text-gray-900 mb-2">
+            이름(닉네임)
+          </label>
+          <input
+            type="text"
+            placeholder="이름(닉네임)을 입력해주세요"
+            maxLength={10}
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              setNameTouched(true);
+            }}
+            className={cn(
+              "w-full h-11 sm:h-12 rounded-lg border px-3 sm:px-4 text-sm sm:text-base placeholder:text-gray-400 focus:outline-none focus:ring-2",
+              nameTouched && name.length > 0 && (!NAME_REGEX.test(name) || name.length < 3)
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-300 focus:ring-gray-300"
+            )}
+          />
+          {nameTouched && name.length > 0 && !NAME_REGEX.test(name) ? (
+            <p className="mt-1.5 text-xs sm:text-sm text-red-500">
+              한글과 영문만 입력 가능합니다.
+            </p>
+          ) : nameTouched && name.length > 0 && name.length < 3 ? (
+            <p className="mt-1.5 text-xs sm:text-sm text-red-500">
+              3자 이상 입력해주세요.
+            </p>
+          ) : (
+            <p className="mt-1.5 text-xs sm:text-sm text-gray-400">
+              한글/영문 허용, 3자~10자
+            </p>
+          )}
+        </div>
+
+        {/* ③ 비밀번호 */}
         <div ref={passwordRef} className="mb-6">
           <label className="block text-sm font-bold text-gray-900 mb-2">
             비밀번호
@@ -467,7 +524,7 @@ export default function SignupPage() {
           )}
         </div>
 
-        {/* ③ 비밀번호 확인 */}
+        {/* ④ 비밀번호 확인 */}
         <div ref={passwordConfirmRef} className="mb-6">
           <label className="block text-sm font-bold text-gray-900 mb-2">
             비밀번호 확인
@@ -493,7 +550,7 @@ export default function SignupPage() {
           )}
         </div>
 
-        {/* ④ 휴대폰 번호 */}
+        {/* ⑤ 휴대폰 번호 */}
         <div ref={phoneRef} className="mb-6">
           <label className="block text-sm font-bold text-gray-900 mb-2">
             휴대폰 번호
@@ -612,7 +669,7 @@ export default function SignupPage() {
           )}
         </div>
 
-        {/* ⑤ 약관 동의 */}
+        {/* ⑥ 약관 동의 */}
         <div ref={agreementRef} className="mb-6">
           <label className="flex items-center gap-3 py-2.5 cursor-pointer">
             <input
@@ -682,7 +739,7 @@ export default function SignupPage() {
           </div>
         </div>
 
-        {/* ⑥ 회원가입 버튼 */}
+        {/* ⑦ 회원가입 버튼 */}
         <button
           type="button"
           onClick={handleSubmit}
