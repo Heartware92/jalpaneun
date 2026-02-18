@@ -14,7 +14,16 @@ const mockCourses: {
   thumbnail?: string;
   monthlyMinutes: number;
   goalMinutes: number;
-}[] = [];
+}[] = [
+  {
+    id: "jangsa",
+    title: "장사의 정석 - 요식업계에서 살아남는 방법",
+    progress: 41,
+    thumbnail: "/videosample/14721730_3840_2160_25fps.mp4",
+    monthlyMinutes: 197,
+    goalMinutes: 240,
+  },
+];
 
 const mockPayments: {
   id: string;
@@ -23,7 +32,22 @@ const mockPayments: {
   amount: number;
   date: string;
   thumbnail?: string;
-}[] = [];
+}[] = [
+  {
+    id: "pay-1",
+    status: "결제완료",
+    courseName: "장사의정석",
+    amount: 3490000,
+    date: "2.15 19:54",
+  },
+  {
+    id: "pay-2",
+    status: "환불완료",
+    courseName: "장사의정석",
+    amount: 3490000,
+    date: "2.14 19:54",
+  },
+];
 
 type Tab = "courses" | "payments";
 type PaymentFilter = "전체" | "결제완료" | "환불완료";
@@ -178,11 +202,21 @@ export default function MyPage() {
                           </div>
 
                           {/* 썸네일 */}
-                          <div className="w-full aspect-video bg-gray-100 rounded-xl mb-3 flex items-center justify-center">
-                            {course.thumbnail ? (
-                              <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover rounded-xl" />
+                          <div className="w-full aspect-video bg-gray-100 rounded-xl mb-3 overflow-hidden">
+                            {course.thumbnail?.endsWith(".mp4") ? (
+                              <video
+                                src={course.thumbnail}
+                                className="w-full h-full object-cover"
+                                muted
+                                playsInline
+                                preload="metadata"
+                              />
+                            ) : course.thumbnail ? (
+                              <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
                             ) : (
-                              <PlayCircle className="w-12 h-12 text-gray-300" />
+                              <div className="w-full h-full flex items-center justify-center">
+                                <PlayCircle className="w-12 h-12 text-gray-300" />
+                              </div>
                             )}
                           </div>
 
