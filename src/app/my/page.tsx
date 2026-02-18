@@ -61,6 +61,13 @@ export default function MyPage() {
 
   const displayName = session.user.name || user?.displayName || "회원";
   const email = session.user.email || user?.email || "";
+  const provider = user?.provider || session.user.provider || "";
+  const providerLabel =
+    provider === "naver" ? "네이버"
+    : provider === "google" ? "구글"
+    : provider === "kakao" ? "카카오"
+    : provider === "email" ? "이메일"
+    : "";
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20 pb-10 px-4">
@@ -87,7 +94,12 @@ export default function MyPage() {
               {displayName} 님
               <ChevronRight className="w-5 h-5 text-gray-400" />
             </button>
-            <p className="text-sm text-gray-400 mt-1">{email}</p>
+            {providerLabel && (
+              <p className="text-xs text-gray-400 mt-1">{providerLabel} 계정으로 로그인</p>
+            )}
+            {email && (
+              <p className="text-sm text-gray-400 mt-0.5">{email}</p>
+            )}
           </div>
         </div>
 
