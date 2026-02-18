@@ -19,7 +19,7 @@ const mockCourses: {
     id: "jangsa",
     title: "장사의 정석 - 요식업계에서 살아남는 방법",
     progress: 41,
-    thumbnail: "/videosample/14721730_3840_2160_25fps.mp4",
+    thumbnail: "/images/course-thumbnail.png",
     monthlyMinutes: 197,
     goalMinutes: 240,
   },
@@ -203,15 +203,7 @@ export default function MyPage() {
 
                           {/* 썸네일 */}
                           <div className="w-full aspect-video bg-gray-100 rounded-xl mb-3 overflow-hidden">
-                            {course.thumbnail?.endsWith(".mp4") ? (
-                              <video
-                                src={course.thumbnail}
-                                className="w-full h-full object-cover"
-                                muted
-                                playsInline
-                                preload="metadata"
-                              />
-                            ) : course.thumbnail ? (
+                            {course.thumbnail ? (
                               <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center">
