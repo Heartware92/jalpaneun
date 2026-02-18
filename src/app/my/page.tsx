@@ -53,7 +53,7 @@ type Tab = "courses" | "payments";
 type PaymentFilter = "전체" | "결제완료" | "환불완료";
 
 export default function MyPage() {
-  const { user, session, loading, signOut } = useAuth();
+  const { user, session, loading } = useAuth();
   const [activeTab, setActiveTab] = useState<Tab>("courses");
   const [paymentFilter, setPaymentFilter] = useState<PaymentFilter>("전체");
 
@@ -329,14 +329,6 @@ export default function MyPage() {
           </div>
         </div>
 
-        {/* 로그아웃 */}
-        <button
-          type="button"
-          onClick={signOut}
-          className="w-full mt-4 py-3 text-sm text-gray-400 hover:text-gray-600 transition-colors"
-        >
-          로그아웃
-        </button>
       </div>
     </div>
   );
