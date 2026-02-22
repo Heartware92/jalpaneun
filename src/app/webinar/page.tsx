@@ -76,7 +76,7 @@ export default function WebinarPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 py-20">
+      <div className="max-w-4xl mx-auto px-4 pt-20 pb-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-3 py-1 rounded-full mb-4">
