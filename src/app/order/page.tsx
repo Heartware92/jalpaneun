@@ -79,6 +79,8 @@ export default function OrderPage() {
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">주문/결제</h1>
+
         {/* ① 주문상품 */}
         <section>
           <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3">주문상품</h2>

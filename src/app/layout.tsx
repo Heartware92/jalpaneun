@@ -3,8 +3,10 @@ import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import AuthModal from "@/components/auth/AuthModal";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/components/providers/AuthProvider";
+import { AuthModalProvider } from "@/contexts/AuthModalContext";
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
@@ -26,10 +28,13 @@ export default function RootLayout({
     <html lang="ko">
       <body className={`${notoSansKR.variable} font-sans antialiased`}>
         <AuthProvider>
-          <Toaster position="top-center" />
-          <Header />
-          <main className="min-h-screen pt-16">{children}</main>
-          <Footer />
+          <AuthModalProvider>
+            <Toaster position="top-center" />
+            <Header />
+            <AuthModal />
+            <main className="min-h-screen pt-16">{children}</main>
+            <Footer />
+          </AuthModalProvider>
         </AuthProvider>
       </body>
     </html>
