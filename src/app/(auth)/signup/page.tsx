@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { X, ChevronDown, Check } from "lucide-react";
+import { ChevronDown, Check } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
@@ -414,17 +414,8 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50 pt-20 pb-10">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-sm p-5 sm:p-8 relative overflow-hidden">
-        {/* 헤더 */}
-        <div className="flex items-center justify-center mb-8 relative">
-          <h1 className="text-2xl font-bold">회원가입</h1>
-          <button
-            onClick={() => router.push("/")}
-            className="absolute right-0 top-0 p-1"
-            aria-label="닫기"
-          >
-            <X className="w-6 h-6 text-gray-400" />
-          </button>
-        </div>
+        {/* 상단 여백 */}
+        <div className="mb-4" />
 
         {/* ① 이메일 */}
         <div ref={emailRef} className="mb-6">
@@ -435,6 +426,7 @@ export default function SignupPage() {
             <input
               type="email"
               placeholder="example@google.com"
+              autoComplete="off"
               value={email}
               onChange={(e) => handleEmailChange(e.target.value)}
               className={cn(
@@ -467,6 +459,7 @@ export default function SignupPage() {
             type="text"
             placeholder="이름(닉네임)을 입력해주세요"
             maxLength={10}
+            autoComplete="off"
             value={name}
             onChange={(e) => {
               setName(e.target.value);
@@ -501,6 +494,7 @@ export default function SignupPage() {
           </label>
           <input
             type="password"
+            autoComplete="new-password"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -531,6 +525,7 @@ export default function SignupPage() {
           </label>
           <input
             type="password"
+            autoComplete="new-password"
             value={passwordConfirm}
             onChange={(e) => {
               setPasswordConfirm(e.target.value);

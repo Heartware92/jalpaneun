@@ -2,22 +2,41 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/hooks/useAuth";
 
+const PAGE_TITLES: Record<string, string> = {
+  "/login": "로그인",
+  "/signup": "회원가입",
+  "/my": "마이페이지",
+  "/my/courses": "내 강의",
+  "/order": "주문/결제",
+  "/webinar": "웨비나",
+};
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user, session, loading, signOut } = useAuth();
+  const pathname = usePathname();
+  const pageTitle = PAGE_TITLES[pathname] || "";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 relative">
           {/* 좌측: 로고 (PC/MO 공통) */}
           <Link href="/" className="flex items-center gap-2">
             <span className="text-2xl font-bold text-brand-red">잘파는사람들</span>
           </Link>
+
+          {/* 중앙: 페이지 타이틀 */}
+          {pageTitle && (
+            <span className="absolute left-1/2 -translate-x-1/2 text-base sm:text-lg font-bold text-gray-900">
+              {pageTitle}
+            </span>
+          )}
 
           {/* PC 우측: 로그인/회원가입 */}
           <div className="hidden md:flex items-center gap-3">
