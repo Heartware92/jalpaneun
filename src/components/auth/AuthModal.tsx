@@ -41,8 +41,8 @@ export default function AuthModal() {
         onClick={close}
       />
 
-      {/* 모달 카드 */}
-      <div className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-xl max-h-[90vh] overflow-y-auto">
+      {/* 모달 카드 - 외부: 둥근 모서리 클리핑, 내부: 스크롤 */}
+      <div className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-xl max-h-[90vh] overflow-hidden">
         {/* 닫기 버튼 */}
         <button
           type="button"
@@ -53,8 +53,8 @@ export default function AuthModal() {
           <X className="w-6 h-6 text-gray-400 hover:text-gray-600" />
         </button>
 
-        {/* 폼 콘텐츠 */}
-        <div className="p-5 sm:p-8">
+        {/* 스크롤 영역 */}
+        <div className="max-h-[90vh] overflow-y-auto p-5 sm:p-8">
           {mode === "login" ? (
             <LoginForm
               onSwitchToSignup={openSignup}

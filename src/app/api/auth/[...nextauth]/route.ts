@@ -43,6 +43,8 @@ const handler = NextAuth({
             email: firebaseUser.email,
             name: userData?.displayName || firebaseUser.displayName || "",
             image: userData?.photoURL || firebaseUser.photoURL || null,
+            phone: userData?.phone || "",
+            provider: "email",
           };
         } catch (error: unknown) {
           const errorMessage = error instanceof Error ? error.message : "";
@@ -100,16 +102,34 @@ const handler = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.sub!;
-        session.user.provider = token.provider as string;
+        session.user.provider = token.provider || "unknown";
+        session.user.phone = token.phone || "";
+        session.user.displayName = token.displayName || session.user.name || "";
       }
       return session;
     },
-    async jwt({ token, account, user }) {
+    async jwt({ token, account, user, trigger }) {
       if (account) {
         token.provider = account.provider;
       }
       if (user) {
         token.sub = user.id;
+        token.displayName = user.name || "";
+        token.phone = (user as unknown as Record<string, unknown>).phone as string || "";
+      }
+      // 세션 갱신 시 Firestore에서 최신 정보 반영
+      if (trigger === "update" && token.sub) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", token.sub));
+          if (userDoc.exists()) {
+            const data = userDoc.data();
+            token.displayName = data.displayName || token.displayName;
+            token.phone = data.phone || token.phone;
+            token.picture = data.photoURL || token.picture;
+          }
+        } catch {
+          // 실패해도 기존 토큰 유지
+        }
       }
       return token;
     },

@@ -1,47 +1,28 @@
 "use client";
 
 import { useSession, signIn, signOut as nextAuthSignOut } from "next-auth/react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { db, auth } from "@/lib/firebase";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import type { User } from "@/types";
 
 export function useAuth() {
   const { data: session, status } = useSession();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (session?.user?.id) {
-        try {
-          const userDoc = await getDoc(doc(db, "users", session.user.id));
-          if (userDoc.exists()) {
-            setUser(userDoc.data() as User);
-          } else {
-            setUser({
-              uid: session.user.id,
-              email: session.user.email || "",
-              displayName: session.user.name || "",
-              photoURL: session.user.image || undefined,
-              provider: session.user.provider as User["provider"],
-              createdAt: new Date(),
-            });
-          }
-        } catch (error) {
-          console.error("Error fetching user:", error);
-        }
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
+  // 세션에서 바로 유저 정보 생성 (Firestore 재조회 없음)
+  const user = useMemo<User | null>(() => {
+    if (!session?.user?.id) return null;
+    return {
+      uid: session.user.id,
+      email: session.user.email || "",
+      displayName: session.user.displayName || session.user.name || "",
+      photoURL: session.user.image || undefined,
+      phone: session.user.phone || "",
+      provider: (session.user.provider || "unknown") as User["provider"],
+      createdAt: new Date(),
     };
-
-    if (status !== "loading") {
-      fetchUser();
-    }
-  }, [session, status]);
+  }, [session]);
 
   // 이메일/비밀번호 회원가입
   const signUp = async (email: string, password: string, name: string, phone?: string) => {
@@ -97,13 +78,12 @@ export function useAuth() {
 
   const signOut = async () => {
     await nextAuthSignOut({ callbackUrl: "/" });
-    setUser(null);
   };
 
   return {
     user,
     session,
-    loading: status === "loading" || loading,
+    loading: status === "loading",
     isAuthenticated: !!session,
     signUp,
     signIn: signInWithEmail,
