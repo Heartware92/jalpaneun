@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import { ChevronDown, PlayCircle } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -78,18 +77,9 @@ export default function OrderPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-16">
-      {/* 헤더 */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-center relative">
-          <Link href="/" className="absolute left-4 text-brand-red font-bold text-sm sm:text-base">
-            잘파는사람들
-          </Link>
-          <h1 className="text-lg sm:text-xl font-bold text-gray-900">주문/결제</h1>
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-gray-50 pt-20">
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 text-center">주문/결제</h1>
         {/* ① 주문상품 */}
         <section>
           <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3">주문상품</h2>
