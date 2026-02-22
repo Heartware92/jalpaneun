@@ -29,7 +29,7 @@ export default function MyCoursesPage() {
 
   // TODO: Firestore에서 구매한 강의 목록 조회
   return (
-    <div className="max-w-4xl mx-auto px-4 pt-20 pb-10">
+    <div className="min-h-screen bg-gray-50 max-w-4xl mx-auto px-4 pt-20 pb-10">
       <h1 className="text-2xl font-bold text-gray-900 text-center mb-8">내 강의</h1>
 
       <div className="bg-white rounded-2xl p-6 shadow-sm">
