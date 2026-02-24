@@ -76,32 +76,11 @@ export default function OrderPage() {
 
     const paymentId = `order_${Date.now()}_${Math.random().toString(36).substring(7)}`;
 
-    // 결제수단별 설정
-    const getPaymentConfig = () => {
-      switch (selectedMethod) {
-        case "card":
-          return { payMethod: "CARD" as const };
-        case "kakaopay":
-          return {
-            payMethod: "EASY_PAY" as const,
-            easyPay: { provider: "KAKAOPAY" as const }
-          };
-        case "tosspay":
-          return {
-            payMethod: "EASY_PAY" as const,
-            easyPay: { provider: "TOSSPAY" as const }
-          };
-        case "naverpay":
-          // 네이버페이는 별도 채널 필요 - 일단 토스페이먼츠 결제창으로 대체
-          toast.error("네이버페이는 준비 중입니다. 다른 결제수단을 선택해주세요.");
-          return null;
-        default:
-          return { payMethod: "CARD" as const };
-      }
-    };
-
-    const paymentConfig = getPaymentConfig();
-    if (!paymentConfig) return;
+    // 네이버페이는 별도 채널 필요
+    if (selectedMethod === "naverpay") {
+      toast.error("네이버페이는 준비 중입니다. 다른 결제수단을 선택해주세요.");
+      return;
+    }
 
     try {
       const response = await PortOne.requestPayment({
@@ -111,7 +90,7 @@ export default function OrderPage() {
         orderName: COURSE.name,
         totalAmount: totalPrice,
         currency: "CURRENCY_KRW",
-        ...paymentConfig,
+        payMethod: "CARD",
         customer: {
           fullName: "구매자",
           email: "customer@example.com",
