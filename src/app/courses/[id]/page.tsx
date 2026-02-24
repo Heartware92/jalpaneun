@@ -67,7 +67,7 @@ const weeks = [
     lessons: [
       { id: "5-1", title: "SNS 마케팅 실전", duration: 25 },
       { id: "5-2", title: "배달앱 최적화", duration: 30 },
-      { id: "5-3", title: "네이버 플레이스 공략", duration: 25 },
+      { id: "5-3", title: "지역 마케팅 전략", duration: 25 },
       { id: "5-4", title: "광고비 효율화", duration: 20 },
     ],
   },
