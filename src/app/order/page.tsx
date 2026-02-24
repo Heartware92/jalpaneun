@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown, PlayCircle } from "lucide-react";
 import toast from "react-hot-toast";
+import * as PortOne from "@portone/browser-sdk/v2";
 
 // TODO: 실제 상품 데이터로 교체
 const COURSE = {
@@ -63,7 +64,7 @@ export default function OrderPage() {
     setAgreements(next);
   };
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
     if (!selectedMethod) {
       toast.error("결제수단을 선택해주세요.");
       return;
@@ -72,8 +73,68 @@ export default function OrderPage() {
       toast.error("필수 약관에 모두 동의해주세요.");
       return;
     }
-    // TODO: 포트원 결제 연동
-    toast.success("결제 기능은 준비 중입니다.");
+
+    const paymentId = `order_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+
+    // 결제수단별 설정
+    const getPaymentConfig = () => {
+      switch (selectedMethod) {
+        case "card":
+          return { payMethod: "CARD" as const };
+        case "kakaopay":
+          return {
+            payMethod: "EASY_PAY" as const,
+            easyPay: { provider: "KAKAOPAY" as const }
+          };
+        case "tosspay":
+          return {
+            payMethod: "EASY_PAY" as const,
+            easyPay: { provider: "TOSSPAY" as const }
+          };
+        case "naverpay":
+          // 네이버페이는 별도 채널 필요 - 일단 토스페이먼츠 결제창으로 대체
+          toast.error("네이버페이는 준비 중입니다. 다른 결제수단을 선택해주세요.");
+          return null;
+        default:
+          return { payMethod: "CARD" as const };
+      }
+    };
+
+    const paymentConfig = getPaymentConfig();
+    if (!paymentConfig) return;
+
+    try {
+      const response = await PortOne.requestPayment({
+        storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID!,
+        channelKey: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY!,
+        paymentId,
+        orderName: COURSE.name,
+        totalAmount: totalPrice,
+        currency: "CURRENCY_KRW",
+        ...paymentConfig,
+        customer: {
+          fullName: "구매자",
+          email: "customer@example.com",
+          phoneNumber: "01012345678",
+        },
+      });
+
+      if (response?.code) {
+        // 결제 실패 또는 취소
+        if (response.code !== "FAILURE_TYPE_PG") {
+          toast.error(response.message || "결제가 취소되었습니다.");
+        }
+        return;
+      }
+
+      // 결제 성공
+      toast.success("결제가 완료되었습니다!");
+      // TODO: 서버에서 결제 검증 후 수강권 발급
+      // window.location.href = "/my/courses";
+    } catch (error) {
+      console.error("Payment error:", error);
+      toast.error("결제 처리 중 오류가 발생했습니다.");
+    }
   };
 
   return (
