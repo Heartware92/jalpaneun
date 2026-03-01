@@ -10,7 +10,7 @@ import { useAuthModal } from "@/contexts/AuthModalContext";
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user, session, loading, signOut } = useAuth();
-  const { openLogin, openSignup } = useAuthModal();
+  const { openLogin } = useAuthModal();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100">
@@ -41,10 +41,7 @@ export default function Header() {
                 </Button>
               </div>
             ) : (
-              <>
-                <Button variant="ghost" size="sm" onClick={openLogin}>로그인</Button>
-                <Button size="sm" onClick={openSignup}>회원가입</Button>
-              </>
+              <Button variant="ghost" size="sm" onClick={openLogin}>로그인</Button>
             )}
           </div>
 
@@ -109,23 +106,13 @@ export default function Header() {
                 </button>
               </>
             ) : (
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  className="flex-1"
-                  size="sm"
-                  onClick={() => { openLogin(); setMobileOpen(false); }}
-                >
-                  로그인
-                </Button>
-                <Button
-                  className="flex-1"
-                  size="sm"
-                  onClick={() => { openSignup(); setMobileOpen(false); }}
-                >
-                  회원가입
-                </Button>
-              </div>
+              <Button
+                className="w-full"
+                size="sm"
+                onClick={() => { openLogin(); setMobileOpen(false); }}
+              >
+                로그인
+              </Button>
             )}
           </nav>
         </div>
