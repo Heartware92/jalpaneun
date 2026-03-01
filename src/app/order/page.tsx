@@ -18,17 +18,15 @@ const COUPONS = [
   { id: "launch-1", label: "🎉 1기 한정 런칭 특별가 (-51만원)", discount: 510000 },
 ];
 
-type PaymentMethod = "naverpay" | "kakaopay" | "card" | "tosspay";
+type PaymentMethod = "virtual_account" | "card";
 
-const PAYMENT_METHODS: { id: PaymentMethod; label: string }[] = [
-  { id: "naverpay", label: "네이버페이" },
-  { id: "kakaopay", label: "카카오페이" },
-  { id: "card", label: "신용카드" },
-  { id: "tosspay", label: "토스페이" },
+const PAYMENT_METHODS: { id: PaymentMethod; label: string; description: string }[] = [
+  { id: "card", label: "신용카드/간편결제", description: "일반카드, 네이버페이, 카카오페이 등" },
+  { id: "virtual_account", label: "무통장 입금", description: "가상계좌 발급" },
 ];
 
 export default function OrderPage() {
-  const [selectedCoupon, setSelectedCoupon] = useState("none");
+  const [selectedCoupon, setSelectedCoupon] = useState("launch-1"); // 런칭 특별가 기본 적용
   const [showCouponDropdown, setShowCouponDropdown] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod | null>(null);
 
@@ -76,13 +74,10 @@ export default function OrderPage() {
 
     const paymentId = `order_${Date.now()}_${Math.random().toString(36).substring(7)}`;
 
-    // 네이버페이는 별도 채널 필요
-    if (selectedMethod === "naverpay") {
-      toast.error("네이버페이는 준비 중입니다. 다른 결제수단을 선택해주세요.");
-      return;
-    }
-
     try {
+      // 결제수단에 따라 payMethod 설정
+      const payMethod = selectedMethod === "virtual_account" ? "VIRTUAL_ACCOUNT" : "CARD";
+
       const response = await PortOne.requestPayment({
         storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID!,
         channelKey: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY!,
@@ -90,12 +85,20 @@ export default function OrderPage() {
         orderName: COURSE.name,
         totalAmount: totalPrice,
         currency: "CURRENCY_KRW",
-        payMethod: "CARD",
+        payMethod,
         customer: {
           fullName: "구매자",
           email: "customer@example.com",
           phoneNumber: "01012345678",
         },
+        // 가상계좌 옵션 (24시간 유효)
+        ...(selectedMethod === "virtual_account" && {
+          virtualAccount: {
+            accountExpiry: {
+              validHours: 24,
+            },
+          },
+        }),
       });
 
       if (response?.code) {
@@ -107,7 +110,11 @@ export default function OrderPage() {
       }
 
       // 결제 성공
-      toast.success("결제가 완료되었습니다!");
+      if (selectedMethod === "virtual_account") {
+        toast.success("가상계좌가 발급되었습니다! 입금 후 수강이 가능합니다.");
+      } else {
+        toast.success("결제가 완료되었습니다!");
+      }
       // TODO: 서버에서 결제 검증 후 수강권 발급
       // window.location.href = "/my/courses";
     } catch (error) {
@@ -182,19 +189,24 @@ export default function OrderPage() {
         {/* ③ 결제수단 */}
         <section>
           <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3">결제수단</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+          <div className="grid grid-cols-2 gap-3">
             {PAYMENT_METHODS.map((method) => (
               <button
                 key={method.id}
                 type="button"
                 onClick={() => setSelectedMethod(method.id)}
-                className={`py-3 px-2 rounded-xl border text-sm sm:text-base font-medium transition-colors ${
+                className={`py-4 px-3 rounded-xl border text-center transition-colors ${
                   selectedMethod === method.id
                     ? "border-gray-900 bg-gray-900 text-white"
                     : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
                 }`}
               >
-                {method.label}
+                <p className="font-semibold text-sm sm:text-base">{method.label}</p>
+                <p className={`text-xs mt-1 ${
+                  selectedMethod === method.id ? "text-gray-300" : "text-gray-400"
+                }`}>
+                  {method.description}
+                </p>
               </button>
             ))}
           </div>
