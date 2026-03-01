@@ -41,7 +41,7 @@ export default function Header() {
                 </Button>
               </div>
             ) : (
-              <Button variant="ghost" size="sm" onClick={openLogin}>로그인</Button>
+              <Button variant="outline" size="sm" onClick={openLogin}>로그인</Button>
             )}
           </div>
 
