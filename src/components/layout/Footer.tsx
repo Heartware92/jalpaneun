@@ -9,11 +9,11 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-bold text-lg mb-4">잘파는사람들</h3>
             <ul className="space-y-1 text-sm">
-              <li>상호명: (주)잘파는사람들</li>
-              <li>대표: -</li>
-              <li>사업자등록번호: -</li>
+              <li>상호명: 주식회사 잘파는사람들</li>
+              <li>대표: 양지삼</li>
+              <li>사업자등록번호: 715-86-03495</li>
               <li>통신판매업신고: -</li>
-              <li>주소: -</li>
+              <li>주소: 경기도 김포시 김포한강9로 95, 3층 303-58호(구래동)</li>
             </ul>
           </div>
 
